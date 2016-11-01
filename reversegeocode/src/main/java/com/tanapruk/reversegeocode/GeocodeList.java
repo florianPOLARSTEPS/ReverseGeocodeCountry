@@ -1,5 +1,6 @@
 package com.tanapruk.reversegeocode;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 import com.google.gson.annotations.SerializedName;
 import com.tanapruk.reversegeocode.Polygon.Point;
@@ -32,17 +33,7 @@ public class GeocodeList {
         return index;
     }
 
-    private void setGeocodeList(List<Geocode> geocodeList) {
-        this.geocodeList = geocodeList;
-    }
-
-    public String getCountryName(double latitude, double longitude) {
-        return getGeocode(latitude, longitude).getName();
-    }
-    public String getCountryId(double latitude, double longitude) {
-        return getGeocode(latitude, longitude).getId();
-    }
-
+    @Nullable
     Geocode getGeocode(double latitude, double longitude) {
         Point currentPoint = new Point((float) latitude, (float) longitude);
         for (int i = 0; i < geocodeList.size(); i++) {
@@ -62,14 +53,10 @@ public class GeocodeList {
                 }
             }
         }
-        Log.e("Check", "Your latitude and longitude doesn't match anywhere on earth.");
-        Geocode geocode = new Geocode();
-        geocode.setId("No match found.");
-        geocode.setName("No match found");
-        return geocode;
+        return null;
     }
 
-    private class Geocode {
+    public static class Geocode {
         String id;
         String name;
         Geometry geometry;

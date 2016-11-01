@@ -1,6 +1,7 @@
 package com.tanapruk.reversegeocodedemo;
 
 import android.content.Context;
+import android.location.Address;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tanapruk.reversegeocode.GeocodeListBuilder;
+import com.tanapruk.reversegeocode.CountryGeocode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,14 +35,16 @@ public class MainActivity extends AppCompatActivity {
                 Double longitude = Double.valueOf(editLongitude.getText().toString());
 
 
-                String countryId = GeocodeListBuilder.getCountryId(context, latitude, longitude);
-                String countryName = GeocodeListBuilder.getCountryName(context, latitude, longitude);
+                try {
+                    Address address = CountryGeocode.withContext(getApplicationContext()).lookupCountryName(latitude, longitude).call();
+                    textCountryId.setText(address.getCountryCode());
+                    textCountryName.setText(address.getCountryName());
 
+                    Toast.makeText(context, "ID: " + address.getCountryCode() + "  " + " Name: " + address.getCountryName(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                textCountryId.setText(countryId);
-                textCountryName.setText(countryName);
-
-                Toast.makeText(context, "ID: " + countryId + "  " + " Name: " + countryName, Toast.LENGTH_SHORT).show();
 
             }
         });
