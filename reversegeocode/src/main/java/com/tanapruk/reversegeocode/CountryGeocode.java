@@ -20,7 +20,6 @@ import java.util.concurrent.Callable;
 
 public class CountryGeocode implements Closeable {
 
-
     private static CountryGeocode mInstance = new CountryGeocode();
 
     private WeakReference<GeocodeList> mGeocodeList;
@@ -89,7 +88,7 @@ public class CountryGeocode implements Closeable {
         }
 
         GeocodeList geocodeListFromJSON = getGeocodeListFromJSON(context);
-        mGeocodeList = new WeakReference<GeocodeList>(geocodeListFromJSON);
+        mGeocodeList = new WeakReference<>(geocodeListFromJSON);
         return geocodeListFromJSON;
     }
 
