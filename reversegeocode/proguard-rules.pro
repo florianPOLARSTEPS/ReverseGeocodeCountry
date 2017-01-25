@@ -15,3 +15,9 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# reverse geocode
+
+-keep class * extends com.tanapruk.reversegeocode.**$* {*;}
+-keep class * extends com.tanapruk.reversegeocode.** {*;}
+
+-keepattributes InnerClasses
