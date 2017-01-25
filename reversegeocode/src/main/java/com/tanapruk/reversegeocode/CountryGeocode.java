@@ -5,6 +5,8 @@ import android.location.Address;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.tanapruk.reversegeocode.domain.Geocode;
+import com.tanapruk.reversegeocode.domain.GeocodeList;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -42,7 +44,7 @@ public class CountryGeocode implements Closeable {
                     throw new IllegalArgumentException("Could not load geocode list");
                 }
 
-                GeocodeList.Geocode geocode = geocodeListLazy.getGeocode(lat, lng);
+                Geocode geocode = geocodeListLazy.getGeocode(lat, lng);
                 if (geocode == null) {
                     throw new NoCountryFoundException(lat, lng);
                 }
